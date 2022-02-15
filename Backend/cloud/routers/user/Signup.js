@@ -7,7 +7,10 @@ SignUp.get(
     '/',
     expressAsyncHandler( async (req,res) => {
         const user = new User();
+        user.set("username", req.query.username);
+        user.set("password", req.query.password);
 
+<<<<<<< HEAD
         if (req.query.username && req.query.password &&
             req.query.email && req.query.email &&
             req.query.firstname && req.query.lastname && req.query.secpassword){
@@ -26,6 +29,10 @@ SignUp.get(
             res.send(JSON.stringify({ "error": "all filds must be filled"}))
             return
         } 
+=======
+        // TODO add email verification
+        // user.set("email", "email@example.com");
+>>>>>>> ed8ecac6b3c64b809b5af806fdbcd9f17db39533
         
         try {
             await user.signUp();
@@ -36,8 +43,7 @@ SignUp.get(
             role.save(null, { useMasterKey: true });    
             res.send(JSON.stringify({"token" : user.getSessionToken()}))
         } catch (error) {
-            console.log(error)
-            res.send(JSON.stringify(error))
+            res.send(JSON.stringify({ "error": error}))
         }
     })
 )

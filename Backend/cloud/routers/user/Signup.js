@@ -10,13 +10,12 @@ SignUp.get(
 
         if (req.query.username && req.query.password &&
             req.query.email && req.query.email &&
-            req.query.firstname && req.query.lastname){
-                if (req.query.password == req.query.retrypassword){
+            req.query.firstname && req.query.lastname && req.query.secpassword){
+                if (req.query.password == req.query.secpassword){
                     user.set("username", req.query.username);
                     user.set("password", req.query.password);
-                    user.set("password", req.query.password);
                     user.set("email", req.query.email);
-                    user.set("first-nanme", req.query.firstname);
+                    user.set("firstname", req.query.firstname);
                     user.set("lastname", req.query.lastname);
                 }
                 else {

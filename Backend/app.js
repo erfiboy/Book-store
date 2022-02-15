@@ -9,6 +9,8 @@ import SignUp from './cloud/routers/user/Signup.js'
 import Login from './cloud/routers/user/Login.js'
 import Cart from './cloud/routers/user/Cart.js'
 import UpdateCart from './cloud/routers/user/UpdateCart.js'
+import UserSpec from './cloud/routers/user/UserSpec.js'
+import ChangePass from './cloud/routers/user/ChangePass.js'
 import GetCart from './cloud/routers/user/GetCart.js'
 import Status from './cloud/routers/products/status.js'
 import List from './cloud/routers/products/list.js'
@@ -76,6 +78,8 @@ app.use('/login', Login);
 app.use('/cart', Cart);
 app.use('/update-cart', UpdateCart);
 app.use('/get-cart', GetCart);
+app.use('/user-spec', UserSpec);
+app.use('/change-pass', ChangePass);
 
 app.use('/status', Status);
 app.use('/list', List);

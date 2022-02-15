@@ -9,7 +9,7 @@ Login.get(
             const user = await Parse.User.logIn(req.query.username, req.query.password);
             res.send(JSON.stringify({"token" : user.getSessionToken()}))
         } catch (error) {
-            res.send(JSON.stringify({ "error": error}))
+            res.send(JSON.stringify({ "error": error.message}))
         }
     })
 )

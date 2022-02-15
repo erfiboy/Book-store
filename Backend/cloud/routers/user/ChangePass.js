@@ -10,13 +10,13 @@ ChangePass.get(
             await Parse.User.become(req.query.token)
             const user = Parse.User.current()
 
-            const currentpass = user.attributes.curpassword;
-            const newpass = user.attributes.newpassword;
+            const currentpass = req.query.curpassword;
+            const newpass = req.query.newpassword;
 
             try {
-                await Parse.User.logIn(user.attributes.username, currentpass);
+                const check_user = await Parse.User.logIn(user.attributes.username, currentpass);
                 user.setPassword(newpass);
-                user.save({ useMasterKey: true })
+                user.save(null, {useMasterKey:true})
                 res.send(JSON.stringify({"response": "successful"}))   
             } catch (error) {
                 res.send(JSON.stringify({"response": "failed password is not correct"}))   

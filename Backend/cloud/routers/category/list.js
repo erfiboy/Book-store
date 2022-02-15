@@ -21,7 +21,7 @@ CategoryList.get(
             res.send(JSON.stringify(response))
 
         } catch (error) {
-            res.send('error: ' + error)
+            res.send(JSON.stringify({ "error": error}))
         }
     })
 )

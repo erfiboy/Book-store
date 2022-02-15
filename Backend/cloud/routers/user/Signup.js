@@ -20,9 +20,9 @@ SignUp.get(
             const role = await query.first({useMasterKey: true});
             role.getUsers().add(user);
             role.save(null, { useMasterKey: true });    
-            res.send(JSON.stringify({"success" : user.getSessionToken()}))
+            res.send(JSON.stringify({"token" : user.getSessionToken()}))
         } catch (error) {
-            res.send("error " + error)
+            res.send(JSON.stringify({ "error": error}))
         }
     })
 )

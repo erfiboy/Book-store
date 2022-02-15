@@ -47,7 +47,7 @@ List.get(
             res.send(JSON.stringify(result))
 
         } catch (error) {
-            res.send('error: ' + error)
+            res.send(JSON.stringify({ "error": error}))
         }
     })
 )

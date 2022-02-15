@@ -23,7 +23,7 @@ Cart.get(
             console.log(books)
             res.send(JSON.stringify(books))
         } catch (error) {
-            res.send('error: ' + error)
+            res.send(JSON.stringify({ "error": error}))
         }
     })
 )

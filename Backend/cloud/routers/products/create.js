@@ -59,7 +59,7 @@ CreateProduct.get(
             res.send(JSON.stringify({ "status": "ok" }))
 
         } catch (error) {
-            res.send('error: ' + error)
+            res.send(JSON.stringify({ "error": error}))
         }
     })
 )

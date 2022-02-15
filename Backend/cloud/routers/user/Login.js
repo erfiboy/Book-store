@@ -7,9 +7,9 @@ Login.get(
     expressAsyncHandler( async (req,res) => {
         try {
             const user = await Parse.User.logIn(req.query.username, req.query.password);
-            res.send("success and id = " + user.getSessionToken())
+            res.send(JSON.stringify({"token" : user.getSessionToken()}))
         } catch (error) {
-            res.send('error: ' + error)
+            res.send(JSON.stringify({ "error": error}))
         }
     })
 )

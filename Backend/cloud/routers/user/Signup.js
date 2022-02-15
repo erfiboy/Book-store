@@ -1,4 +1,4 @@
-import express, { query } from 'express';
+import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import User from '../../models/user.js'
 
@@ -29,11 +29,6 @@ SignUp.get(
         
         try {
             await user.signUp();
-            var query = new Parse.Query(Parse.Role);
-            query.equalTo("name", 'Authenticated');
-            const role = await query.first({useMasterKey: true});
-            role.getUsers().add(user);
-            role.save(null, { useMasterKey: true });    
             res.send(JSON.stringify({"token" : user.getSessionToken()}))
         } catch (error) {
             res.send(JSON.stringify({ "error": error.message}))

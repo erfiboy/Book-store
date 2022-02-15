@@ -63,12 +63,12 @@ const listen = () => {
 }
 
 const start = () => {
-    app.use(cors()); 
     app.use(process.env.SERVER_PATH, api);
     BookStoreDashboard();
     // DefineRoles();
     listen();
 }
+app.use(cors()); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/signup', SignUp);

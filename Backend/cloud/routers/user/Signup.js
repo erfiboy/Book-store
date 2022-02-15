@@ -7,7 +7,11 @@ SignUp.get(
     '/',
     expressAsyncHandler( async (req,res) => {
         const user = new User();
-
+        var currentUser = Parse.User.current();
+        if (currentUser) {
+            // do stuff with the user
+            Parse.User.logOut();
+        } 
         if (req.query.username && req.query.password &&
             req.query.email && req.query.email &&
             req.query.firstname && req.query.lastname && req.query.secpassword){

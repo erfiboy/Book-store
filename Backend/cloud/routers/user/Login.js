@@ -6,7 +6,10 @@ Login.get(
     '/',
     expressAsyncHandler( async (req,res) => {
         try {
-            const user = await Parse.User.logIn(req.query.username, req.query.password);
+            Parse.User.enableUnsafeCurrentUser()
+            let user = await Parse.User.logIn(req.query.username, req.query.password);
+            await Parse.User.become(user.getSessionToken())
+            user = Parse.User.current()
             res.send(JSON.stringify({"token" : user.getSessionToken()}))
         } catch (error) {
             res.send(JSON.stringify({ "error": error.message}))

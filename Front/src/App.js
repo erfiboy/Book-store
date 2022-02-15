@@ -13,6 +13,7 @@ import About from './component/About'
 import Login from './component/Login'
 import Signup from './component/Signup'
 import Dashboard from './component/Dashboard'
+import Changepass from './component/Changepass'
 import P404 from './component/P404'
 
 import {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/changepass" element={<Changepass />} />
         <Route path="*" element={<P404 />} />
       </Routes>
       <Footer />

@@ -36,7 +36,7 @@ SignUp.get(
             role.save(null, { useMasterKey: true });    
             res.send(JSON.stringify({"token" : user.getSessionToken()}))
         } catch (error) {
-            res.send(JSON.stringify({ "error": error}))
+            res.send(JSON.stringify({ "error": error.message}))
         }
     })
 )

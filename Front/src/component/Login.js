@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState, useCallback, } from 'react';
+import Cookies from 'universal-cookie'
 import {
     BrowserRouter,
     Routes,
@@ -6,35 +7,30 @@ import {
     Link
 } from "react-router-dom";
 
+const cookies = new Cookies();
+
 const Login = () => {
+    let [msg, upd] = useState('');
+    console.log(cookies.get('token'))
     let user, pass;
+    useEffect(async () => {
+        if(cookies.get('token')!=undefined)
+          setTimeout(() => { window.location.replace('http://localhost:3000'); }, 0);
+    },[]);
     const onFinish = async (values) => {
         console.log('Success:', user);
         try {
-            let ans = await fetch('http://localhost:1337/login?username='+user+'&password='+pass);
+            let ans = await fetch('http://localhost:1337/login?username=' + user + '&password=' + pass);
             ans = await ans.json();
-            if(ans['token']==undefined){
-                throw 'err';
+            if (ans['token'] == undefined) {
+                throw 'نام کاربری یا رمز عبور تکراری است.';
             }
-            // let t = [];
-            // ans['response'].forEach((item, index) => {
-            //     t.push(
-            //         <div className="col-sm-3">
-            //             <div className="card">
-            //                 <img className="card-img-top" src={booktestimg} height='400px' alt="Card image cap" />
-            //                 <div className="card-body">
-            //                     <h5 className="card-title">{item['name']}</h5>
-            //                     <p className="card-text">قیمت: {item['price']}</p>
-            //                     <p className="card-text">نویسنده: {item['author']}</p>
-            //                     <a href="#" className="btn btn-primary">اطلاعات بیشتر</a>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     )
-            // })
-            // upd(t);
-        } catch {
-            console.log('False Username or Password!');
+            cookies.set('token', ans['token'])
+            setTimeout(() => { window.location.replace('http://localhost:3000'); }, 500);
+            upd('<div class="alert alert-success" role="alert">با موفقیت وارد شدید!</div>');
+        } catch (err) {
+            upd('<div class="alert alert-danger" role="alert">' + err + '</div>');
+            console.log(err);
         }
     };
 
@@ -66,6 +62,7 @@ const Login = () => {
                                         <div className="form-group">
                                             <button htmlType="button" onClick={onFinish} className="form-control btn btn-primary submit px-3">ورود</button>
                                         </div>
+                                        <div dangerouslySetInnerHTML={{ __html: msg }}></div>
                                         {/* </form> */}
                                         <p className="w-100 text-center">&mdash; یا &mdash;</p>
                                         <div className="social d-flex text-center">

@@ -1,4 +1,5 @@
 import './App.css';
+import Cookies from 'universal-cookie'
 import {
   BrowserRouter,
   Routes,
@@ -11,6 +12,7 @@ import Home from './component/Home'
 import About from './component/About'
 import Login from './component/Login'
 import Signup from './component/Signup'
+import Dashboard from './component/Dashboard'
 import P404 from './component/P404'
 
 import {
@@ -22,6 +24,9 @@ import {
 } from 'recoil';
 import { Header } from 'antd/lib/layout/layout';
 
+const cookies = new Cookies();
+// cookies.remove('token','wow!')
+
 function App() {
   return (
     <>
@@ -31,6 +36,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<P404 />} />
       </Routes>
       <Footer />

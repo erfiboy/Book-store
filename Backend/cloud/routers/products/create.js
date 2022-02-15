@@ -53,23 +53,6 @@ CreateProduct.post(
                 res.send({ "error": "book must have a category" })
                 return
             }
-            if (req.body.iamge){
-                product.set("price", req.body.price);
-                ParseFile parseFile = ParseFile(file, name: "image.png", debug: true);
-            var fileResponse = await parseFile.save();
-            if (fileResponse.success) {
-                parseFile = fileResponse.result as ParseFile;
-                print(parseFile.toString());
-                print("Upload with success");
-            } else {
-                print("Upload with failed");
-            }
-            }
-            else {
-                res.statusCode = 500
-                res.send({ "error": "book must have a image" })
-                return
-            }
 
             product.save(null, { useMasterKey: true })
 

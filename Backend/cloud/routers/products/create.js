@@ -5,52 +5,69 @@ import FindOrCreate from '../category/findOrCreate.js'
 
 const CreateProduct = express.Router();
 
-CreateProduct.get(
+CreateProduct.post(
     '/',
     expressAsyncHandler(async (req, res) => {
         try {
             const product = new Product();
 
-            if (req.query.name)
-                product.set("name", req.query.name);
+            if (req.body.name)
+                product.set("name", req.body.name);
             else {
                 res.statusCode = 500
                 res.send({ "error": "book must have a name" })
                 return
             }
 
-            if (req.query.author)
-                product.set("author", req.query.author);
+            if (req.body.author)
+                product.set("author", req.body.author);
             else {
                 res.statusCode = 500
                 res.send({ "error": "book must have a author" })
                 return
             }
 
-            if (req.query.price)
-                product.set("price", req.query.price);
+            if (req.body.price)
+                product.set("price", req.body.price);
             else {
                 res.statusCode = 500
                 res.send({ "error": "book must have a price" })
                 return
             }
 
-            if (req.query.is_available)
-                product.set("is_available", req.query.is_available);
+            if (req.body.is_available)
+                product.set("is_available", req.body.is_available);
             else {
                 res.statusCode = 500
                 res.send({ "error": "book must set the availability status" })
                 return
             }
 
-            if (req.query.category) {
-                const id = await FindOrCreate(req.query.category)
+            if (req.body.category) {
+                const id = await FindOrCreate(req.body.category)
                 console.log(" id in product is ", id)
                 product.set("category", id);
             }
             else {
                 res.statusCode = 500
-                res.send({ "error": "book must set the category" })
+                res.send({ "error": "book must have a category" })
+                return
+            }
+            if (req.body.iamge){
+                product.set("price", req.body.price);
+                ParseFile parseFile = ParseFile(file, name: "image.png", debug: true);
+            var fileResponse = await parseFile.save();
+            if (fileResponse.success) {
+                parseFile = fileResponse.result as ParseFile;
+                print(parseFile.toString());
+                print("Upload with success");
+            } else {
+                print("Upload with failed");
+            }
+            }
+            else {
+                res.statusCode = 500
+                res.send({ "error": "book must have a image" })
                 return
             }
 

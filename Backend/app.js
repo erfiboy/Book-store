@@ -5,16 +5,20 @@ import { createServer } from 'http';
 import bodyParser from 'body-parser'
 import cors from 'cors';
 import api from './configserver.js'
+
 import SignUp from './cloud/routers/user/Signup.js'
 import Login from './cloud/routers/user/Login.js'
 import Cart from './cloud/routers/user/Cart.js'
-import UpdateCart from './cloud/routers/user/UpdateCart.js'
 import UserSpec from './cloud/routers/user/UserSpec.js'
 import ChangePass from './cloud/routers/user/ChangePass.js'
+import AddToCart from './cloud/routers/user/AddToCart.js'
+import DeleteFromCart from './cloud/routers/user/DeleteFromCart.js'
 import GetCart from './cloud/routers/user/GetCart.js'
+
 import Status from './cloud/routers/products/status.js'
 import List from './cloud/routers/products/list.js'
 import CreateProduct from './cloud/routers/products/create.js'
+
 import CategoryList from './cloud/routers/category/list.js'
 import CategoryCreate from './cloud/routers/category/create.js'
 
@@ -76,10 +80,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/signup', SignUp);
 app.use('/login', Login);
 app.use('/cart', Cart);
-app.use('/update-cart', UpdateCart);
 app.use('/get-cart', GetCart);
 app.use('/user-spec', UserSpec);
 app.use('/change-pass', ChangePass);
+app.use('/add-cart', AddToCart);
+app.use('/delete-cart', DeleteFromCart);
 
 app.use('/status', Status);
 app.use('/list', List);

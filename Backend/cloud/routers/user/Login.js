@@ -2,7 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 
 const Login = express.Router();
-Login.get(
+Login.get( 
     '/',
     expressAsyncHandler( async (req,res) => {
         try {

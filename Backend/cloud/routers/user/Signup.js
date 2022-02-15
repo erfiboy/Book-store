@@ -25,7 +25,7 @@ SignUp.get(
         else{
             res.send(JSON.stringify({ "error": "all filds must be filled"}))
             return
-        }
+        } 
         
         try {
             await user.signUp();

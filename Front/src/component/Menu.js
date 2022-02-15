@@ -6,6 +6,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies();
 
 const Menu = () => {
   return (
@@ -38,7 +41,8 @@ const Menu = () => {
           </nav>
         </div>
         <div className="col-sm-2 d-none d-sm-block" style={{ width: '25%', margin: 'auto', textAlign: 'center' }}>
-          <Link className="btn btn-outline-light" to="/login" >ورود</Link>
+          {cookies.get('token')==undefined && <Link className="btn btn-outline-light" to="/login" >ورود</Link>}
+          {cookies.get('token')!=undefined && <Link className="btn btn-outline-light" to="/dashboard" >داشبورد</Link>}
         </div>
       </div>
       <div style={{ color: 'white', direction: 'rtl', textAlign: 'right' }} className="collapse navbar-collapse bg-dark" id="navbarNav2">

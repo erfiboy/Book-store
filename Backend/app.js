@@ -8,6 +8,7 @@ import api from './configserver.js'
 
 import SignUp from './cloud/routers/user/Signup.js'
 import Login from './cloud/routers/user/Login.js'
+import Logout from './cloud/routers/user/Logout.js'
 import Cart from './cloud/routers/user/Cart.js'
 import UserSpec from './cloud/routers/user/UserSpec.js'
 import ChangePass from './cloud/routers/user/ChangePass.js'
@@ -79,6 +80,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/signup', SignUp);
 app.use('/login', Login);
+app.use('/logout', Logout);
 app.use('/cart', Cart);
 app.use('/get-cart', GetCart);
 app.use('/user-spec', UserSpec);

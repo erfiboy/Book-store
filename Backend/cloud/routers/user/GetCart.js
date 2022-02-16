@@ -31,7 +31,8 @@ GetCart.get(
                         "name": book.attributes.name,
                         "author": book.attributes.author,
                         "price": book.attributes.price,
-                        "is_available" : book.attributes.is_available
+                        "is_available" : book.attributes.is_available,
+                        "summery" : element.attributes.summery,
                     })
                     i = i+1;
                     if ( i == products.length){

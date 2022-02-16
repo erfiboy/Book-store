@@ -39,8 +39,8 @@ List.get(
                     "name": element.attributes.name,
                     "author": element.attributes.author,
                     "price": element.attributes.price,
-                    "is_available" : element.attributes.is_available
-                    // TODO book price and ...
+                    "is_available" : element.attributes.is_available,
+                    "summery" : element.attributes.summery
                 })
             })
             const result = {"response" : response}

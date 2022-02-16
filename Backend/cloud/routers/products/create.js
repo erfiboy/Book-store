@@ -1,7 +1,8 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Product from '../../models/product.js'
-import FindOrCreate from '../category/findOrCreate.js'
+import FindOrCreateCategory from '../category/findOrCreate.js'
+import FindOrCreateAuthor from '../author/findOrCreate.js'
 
 const CreateProduct = express.Router();
 
@@ -19,8 +20,10 @@ CreateProduct.post(
                 return
             }
 
-            if (req.body.author)
-                product.set("author", req.body.author);
+            if (req.body.author){
+                const name = await FindOrCreateAuthor(req.body.author)
+                product.set("author", name);
+            }
             else {
                 res.statusCode = 500
                 res.send({ "error": "book must have a author" })
@@ -52,9 +55,8 @@ CreateProduct.post(
             }
 
             if (req.body.category) {
-                const id = await FindOrCreate(req.body.category)
-                console.log(" id in product is ", id)
-                product.set("category", id);
+                const name = await FindOrCreateCategory(req.body.category)
+                product.set("category", name);
             }
             else {
                 res.statusCode = 500
@@ -79,6 +81,16 @@ CreateProduct.post(
                 res.send({ "error": "book must have a description" })
                 return
             }
+
+            // if (req.body.image) {
+            //     let image = new Parse.File()
+            //     product.set("image", req.body.image);
+            // }
+            // else {
+            //     res.statusCode = 500
+            //     res.send({ "error": "book must have a image" })
+            //     return
+            // }
 
             product.save(null, { useMasterKey: true })
 

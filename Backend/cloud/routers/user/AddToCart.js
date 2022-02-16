@@ -27,7 +27,12 @@ AddToCart.get(
                 const cart = new Cart();
                 cart.set("userId", user.id);
                 const product_list = []
-                product_list.push(request.id);
+
+                for (let i = 0; i < request.number; i++){
+                    product_list.push(request.id);
+
+                }
+                
                 cart.set("productsList", product_list);
                 cart.save(null, { useMasterKey: true });
                 res.send(JSON.stringify( {"response" : "created successfuly!"}))

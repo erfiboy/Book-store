@@ -65,8 +65,7 @@ const Bookspec = () => {
                         <img className="card-img-top" src={booktestimg} style={{ textAlign: 'right' }} alt="Card image cap" />
                     </div>
                     <div className="col-sm-4" style={{ marginTop: '2%', color: 'white', direction: 'rtl', textAlign: 'right' }}>
-                        نویسنده: {des['author']}<br />
-                        دسته: {des['category']}<br />
+                        نویسنده: {des['author']} | دسته: {des['category']} | ناشر: {des['publisher']} <br />
                         توضیح: {des['description']}<br /><br />
                         {('true' == des['is_available']) && <div style={{ color: '#bde3bd' }}>در انبار موجود است.</div>}
                         {('true' != des['is_available']) && <div style={{ color: 'red' }}>اتمام موجودی</div>}

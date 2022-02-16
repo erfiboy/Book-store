@@ -6,7 +6,7 @@ import {
     Routes,
     Route,
     Link
-  } from "react-router-dom";
+} from "react-router-dom";
 
 const Header = () => {
     return (
@@ -45,7 +45,7 @@ const Popbooks = () => {
                                 <p className="card-text">قیمت: {item['price']}</p>
                                 <p className="card-text">نویسنده: {item['author']}</p>
                                 <p className="card-text">خلاصه: {item['summary']}</p>
-                                <Link to={"/book/"+item['id']} className="btn btn-primary">اطلاعات بیشتر</Link>
+                                <Link to={"/book/" + item['id']} className="btn btn-primary">اطلاعات بیشتر</Link>
                             </div>
                         </div>
                     </div>

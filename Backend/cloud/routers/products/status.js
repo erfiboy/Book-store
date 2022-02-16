@@ -22,7 +22,9 @@ Status.get(
                 "author": product.author,
                 "price": product.price,
                 "is_available" : product.is_available,
-                "category" : category.attributes.name
+                "category" : category.attributes.name,
+                "summery" : product.summery,
+                "description" : product.description,
             }
             const result = {"response" : response}
             res.send(JSON.stringify(result))

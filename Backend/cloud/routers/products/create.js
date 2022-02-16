@@ -53,6 +53,24 @@ CreateProduct.post(
                 res.send({ "error": "book must have a category" })
                 return
             }
+            
+            if (req.body.summery) {
+                product.set("summery", req.body.summery);
+            }
+            else {
+                res.statusCode = 500
+                res.send({ "error": "book must have a summery" })
+                return
+            }
+
+            if (req.body.description) {
+                product.set("description", req.body.description);
+            }
+            else {
+                res.statusCode = 500
+                res.send({ "error": "book must have a description" })
+                return
+            }
 
             product.save(null, { useMasterKey: true })
 

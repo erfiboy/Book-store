@@ -40,7 +40,7 @@ List.get(
                     "author": element.attributes.author,
                     "price": element.attributes.price,
                     "is_available" : element.attributes.is_available,
-                    "summery" : element.attributes.summery
+                    "summary" : element.attributes.summary
                 })
             })
             const result = {"response" : response}

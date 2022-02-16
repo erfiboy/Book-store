@@ -23,7 +23,7 @@ Status.get(
                 "price": product.price,
                 "is_available" : product.is_available,
                 "category" : category.attributes.name,
-                "summery" : product.summery,
+                "summary" : product.summary,
                 "description" : product.description,
             }
             const result = {"response" : response}

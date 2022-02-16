@@ -23,6 +23,8 @@ import CreateProduct from './cloud/routers/products/create.js'
 import CategoryList from './cloud/routers/category/list.js'
 import CategoryCreate from './cloud/routers/category/create.js'
 
+import AuthorList from './cloud/routers/author/list.js'
+
 const app = express();
 dotenv.config(); // Loads environment variables from .env file
 
@@ -95,6 +97,7 @@ app.use('/create', CreateProduct);
 app.use('/category/list', CategoryList);
 app.use('/category/create', CategoryCreate);
 
+app.use('/author/list', AuthorList);
 
 app.get('/test', function (req, res) {
     res.send("salam");

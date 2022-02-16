@@ -1,17 +1,16 @@
 import express, { response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 
-const CategoryList = express.Router();
+const AuthorList = express.Router();
 
-CategoryList.get(
+AuthorList.get(
     '/',
     expressAsyncHandler( async (req,res) => {
         try {
-            const id = req.query.id
-            const query = new Parse.Query("Category");
-            const category = (await query.find({ useMasterKey: true }))
+            const query = new Parse.Query("Author");
+            const authors = (await query.find({ useMasterKey: true }))
             let response = [];
-            category.forEach(element =>{
+            authors.forEach(element =>{
                 response.push({
                     "name": element.attributes.name,
                 })
@@ -25,4 +24,4 @@ CategoryList.get(
     })
 )
 
-export default CategoryList;
+export default AuthorList;

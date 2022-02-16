@@ -10,8 +10,8 @@ List.get(
             const id = req.query.id
             const query = new Parse.Query("Product");
 
-            if (req.query.catrgory_id){
-                query.equalTo("category", req.query.catrgory_id)
+            if (req.query.category){
+                query.equalTo("category", req.query.category)
             }
             
             if (req.query.author){

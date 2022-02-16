@@ -25,9 +25,10 @@ const cookies = new Cookies();
 const Dashboard = () => {
   let [msg, upd] = useState([]);
   let [cards, updCards] = useState([]);
-  const logout = () => {
+  const logout = async () => {
     cookies.remove('token');
     setTimeout(() => { window.location.replace('http://localhost:3000'); }, 50);
+    fetch('http://localhost:1337/logout');
   }
   useEffect(async () => {
     if (cookies.get('token') == undefined)

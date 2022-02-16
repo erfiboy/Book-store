@@ -10,28 +10,36 @@ List.get(
             const id = req.query.id
             const query = new Parse.Query("Product");
 
-            if (req.query.catrgory_id)
+            if (req.query.catrgory_id){
                 query.equalTo("category", req.query.catrgory_id)
+            }
             
-            if (req.query.price__lt)
-                query.lessThan("price", req.query.price__lt)
+            if (req.query.author){
+                query.equalTo("author", req.query.author)
+            }
+            
+            // TODO parse save the price as an string
+            // if (req.query.pricelt){
+            //     console.log("less than", req.query.pricelt)
+            //     query.lessThanOrEqualTo("price", parseInt(req.query.pricelt))
+            // }
                 
-            if (req.query.price__gt)    
-                query.greaterThan("price", req.query.price__gt)
+            // if (req.query.pricegt){
+            //     query.greaterThanOrEqualTo("price", parseInt(req.query.pricegt))
+            // }    
 
             if (req.query.sort){
                 if(req.query.sort == "price-")
                 query.descending("price")
-                else if(req.query.sort == "price-")
+                else if(req.query.sort == "price")
                 query.ascending("price")
-                if(req.query.sort == "date_updated-")
-                query.descending("updatedAt")
-                else if(req.query.sort == "date_updated")
-                query.ascending("updatedAt")
+                if(req.query.sort == "createdAt-")
+                query.descending("createdAt")
+                else if(req.query.sort == "createdAt")
+                query.ascending("createdAt")
             }
             
             const books = (await query.find({ useMasterKey: true }))
-            console.log("book", books)
             let response = [];
             books.forEach(element =>{
                 response.push({
@@ -40,6 +48,8 @@ List.get(
                     "author": element.attributes.author,
                     "price": element.attributes.price,
                     "is_available" : element.attributes.is_available,
+                    "category" : element.attributes.category,
+                    "publisher" : element.attributes.publisher,
                     "summary" : element.attributes.summary
                 })
             })

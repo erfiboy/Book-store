@@ -26,6 +26,14 @@ CreateProduct.post(
                 res.send({ "error": "book must have a author" })
                 return
             }
+            console.log(req.body.publisher)
+            if (req.body.publisher)
+                product.set("publisher", req.body.publisher);
+            else {
+                res.statusCode = 500
+                res.send({ "error": "book must have a publisher" })
+                return
+            }
 
             if (req.body.price)
                 product.set("price", req.body.price);

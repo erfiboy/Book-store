@@ -15,6 +15,7 @@ import Signup from './component/Signup'
 import Dashboard from './component/Dashboard'
 import Changepass from './component/Changepass'
 import Bookspec from './component/Bookspec'
+import Admin from './component/Admin'
 import P404 from './component/P404'
 
 import {
@@ -41,11 +42,11 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/changepass" element={<Changepass />} />
         <Route path="/book/:id" element={<Bookspec />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<P404 />} />
       </Routes>
       <Footer />
     </>
-
   );
 }
 

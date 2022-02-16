@@ -20,19 +20,22 @@ GetCart.get(
             }
             else {
                 const products =  cart.attributes.productsList
+                const numbers  =  cart.attributes.numberList
                 let response = [];
                 let i = 0;
                 products.forEach(async element => {
+                    console.log(element)
                     const query = new Parse.Query("Product");
                     query.equalTo("objectId", element);
                     const book = await query.first({ useMasterKey: true })
+                    console.log(book)
                     response.push({
                         "id": book.id,
                         "name": book.attributes.name,
                         "author": book.attributes.author,
                         "price": book.attributes.price,
                         "is_available" : book.attributes.is_available,
-                        "summary" : element.attributes.summary,
+                        "number" : numbers[i],
                     })
                     i = i+1;
                     if ( i == products.length){

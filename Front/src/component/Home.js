@@ -1,6 +1,12 @@
 import React, { memo, useEffect, useState, useCallback, } from 'react';
 import headerimg from '../Header.jpg'
 import booktestimg from '../Book.jpg'
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Link
+  } from "react-router-dom";
 
 const Header = () => {
     return (
@@ -38,7 +44,7 @@ const Popbooks = () => {
                                 <h5 className="card-title">{item['name']}</h5>
                                 <p className="card-text">قیمت: {item['price']}</p>
                                 <p className="card-text">نویسنده: {item['author']}</p>
-                                <a href="#" className="btn btn-primary">اطلاعات بیشتر</a>
+                                <Link to={"/book/"+item['id']} className="btn btn-primary">اطلاعات بیشتر</Link>
                             </div>
                         </div>
                     </div>

@@ -26,18 +26,17 @@ const Changepass = () => {
   let oldpass, newpass;
   let [msg, upd] = useState('');
   console.log(cookies.get('token'))
-  let user, pass;
   useEffect(async () => {
     // console.log('BBB ' + cookies.get('token'))
     if (cookies.get('token') == undefined)
       setTimeout(() => { window.location.replace('http://localhost:3000'); }, 0);
   }, []);
   const onFinish = async (values) => {
-    console.log('Success:', user);
     try {
-      let ans = await fetch('http://localhost:1337/change-pass?curpassword=' + user + '&newpassword=' + pass + '&token=' + cookies.get('token'));
+      let ans = await fetch('http://localhost:1337/change-pass?curpassword=' + oldpass + '&newpassword=' + newpass + '&token=' + cookies.get('token'));
       ans = await ans.json();
       console.log(ans)
+      console.log('http://localhost:1337/change-pass?curpassword=' + oldpass + '&newpassword=' + newpass + '&token=' + cookies.get('token'))
       if (ans['response'] != 'successful') {
         throw 'رمز عبور اشتباه است.';
       }

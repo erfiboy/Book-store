@@ -14,6 +14,7 @@ import Login from './component/Login'
 import Signup from './component/Signup'
 import Dashboard from './component/Dashboard'
 import Changepass from './component/Changepass'
+import Bookspec from './component/Bookspec'
 import P404 from './component/P404'
 
 import {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/changepass" element={<Changepass />} />
+        <Route path="/book/:id" element={<Bookspec />} />
         <Route path="*" element={<P404 />} />
       </Routes>
       <Footer />

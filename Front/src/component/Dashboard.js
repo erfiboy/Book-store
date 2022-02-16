@@ -24,6 +24,7 @@ const cookies = new Cookies();
 
 const Dashboard = () => {
   let [msg, upd] = useState([]);
+  let [cards, updCards] = useState([]);
   const logout = () => {
     cookies.remove('token');
     setTimeout(() => { window.location.replace('http://localhost:3000'); }, 50);
@@ -38,6 +39,13 @@ const Dashboard = () => {
       console.log(ans);
       let t = 'آقا/خانم ' + ans['firstname'] + ' ' + ans['lastname'] + ' خوش آمدید! <br /> ایمیل شما: ' + ans['email'];
       upd(t);
+      ans = await fetch('http://localhost:1337/get-cart?token=' + token);
+      ans = await ans.json();
+      console.log(ans);
+      if (ans['response'] != '')
+        updCards(ans['response']);
+      else
+        updCards('شما خریدی نداشتید.');
     } catch {
       upd('No connection to backend!');
     }
@@ -49,9 +57,6 @@ const Dashboard = () => {
         <div className="row" style={{ direction: 'ltr', marginBottom: '1%' }}>
           <div className="col-sm-2">
           </div>
-          {/* <div className="col-sm-4" style={{ borderRadius: '3px', textAlign: 'center' }}>
-            خریدهای شما:
-          </div> */}
           <div dangerouslySetInnerHTML={{ __html: msg }} className="col-sm-8" style={{ borderRadius: '3px', textAlign: 'right', direction: 'rtl' }}></div>
           <div className="col-sm-2">
           </div>
@@ -59,7 +64,7 @@ const Dashboard = () => {
         <div className="row" style={{ direction: 'ltr', marginBottom: '1%' }}>
           <div className="col-sm-2">
           </div>
-          <div dangerouslySetInnerHTML={{ __html: msg }} className="col-sm-6" style={{ borderRadius: '3px', textAlign: 'right', direction: 'rtl' }}></div>
+          <div dangerouslySetInnerHTML={{ __html: cards }} className="col-sm-6" style={{ borderRadius: '3px', textAlign: 'right', direction: 'rtl' }}></div>
           <div className="col-sm-2" style={{ borderRadius: '3px', textAlign: 'center', direction: 'rtl' }}>
             خریدهای شما:
           </div>

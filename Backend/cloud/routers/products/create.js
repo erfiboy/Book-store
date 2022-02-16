@@ -54,12 +54,12 @@ CreateProduct.post(
                 return
             }
             
-            if (req.body.summery) {
-                product.set("summery", req.body.summery);
+            if (req.body.summary) {
+                product.set("summary", req.body.summary);
             }
             else {
                 res.statusCode = 500
-                res.send({ "error": "book must have a summery" })
+                res.send({ "error": "book must have a summary" })
                 return
             }
 

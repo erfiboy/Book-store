@@ -9,20 +9,33 @@ Status.get(
         try {
             const id = req.query.id
             let query = new Parse.Query("Product");
-            const product =  (await query.equalTo("objectId", id).first({ useMasterKey: true })).attributes;
+            const product =  (await query.equalTo("objectId", id).first({ useMasterKey: true }));
+
+            query = new Parse.Query("PriceChange");
+            query.descending("createdAt")
+            const pricechange =  (await query.equalTo("product", product.id).find({ useMasterKey: true }));
+            
+            const price_response = []
+            console.log(pricechange)
+            pricechange.forEach(element => {
+                price_response.push({
+                    "price": element.attributes.price,
+                    "is_available":  element.attributes.is_available
+                })
+            });
 
             const response = {
-                "id": product.id,
-                "name": product.name,
-                "author": product.author,
-                "price": product.price,
-                "is_available" : product.is_available,
-                "category" : product.category,
-                "publisher" : product.publisher,
-                "summary" : product.summary,
-                "description" : product.description,
+                "id": product.attributes.id,
+                "name": product.attributes.name,
+                "author": product.attributes.author,
+                "price": product.attributes.price,
+                "is_available" : product.attributes.is_available,
+                "category" : product.attributes.category,
+                "publisher" : product.attributes.publisher,
+                "summary" : product.attributes.summary,
+                "description" : product.attributes.description,
             }
-            const result = {"response" : response}
+            const result = {"response" : response, "price_response" : price_response}
             res.send(JSON.stringify(result))
         } catch (error) {
             res.send(JSON.stringify({"error": error.message}))

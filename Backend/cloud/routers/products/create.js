@@ -1,6 +1,7 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Product from '../../models/product.js'
+import PriceChange from '../../models/pricechange.js'
 import FindOrCreateCategory from '../category/findOrCreate.js'
 import FindOrCreateAuthor from '../author/findOrCreate.js'
 
@@ -10,7 +11,30 @@ CreateProduct.post(
     '/',
     expressAsyncHandler(async (req, res) => {
         try {
-            const product = new Product();
+            const pricechange = new PriceChange()
+            
+            let query = new Parse.Query("Product");
+            query.equalTo("name", req.body.name);
+            query.equalTo("author", req.body.author);
+            query.equalTo("publisher", req.body.publisher);
+            query.equalTo("category", req.body.category);
+            var product = (await query.first({ useMasterKey: true }));
+
+            if (product != undefined){
+                pricechange.set("product", product.id)
+                pricechange.set("price", req.body.price)
+                pricechange.set("is_available", req.body.is_available)
+                pricechange.save(null, { useMasterKey: true })
+                
+                product.set("price", req.body.price)
+                product.set("is_available", req.body.is_available)
+                product.save(null, { useMasterKey: true })
+
+                res.send(JSON.stringify({ "status": "ok" }))
+                return
+            }
+            
+            product = new Product();
 
             if (req.body.name)
                 product.set("name", req.body.name);
@@ -37,17 +61,21 @@ CreateProduct.post(
                 res.send({ "error": "book must have a publisher" })
                 return
             }
-
-            if (req.body.price)
+            
+            if (req.body.price){
+                pricechange.set("price", req.body.price)
                 product.set("price", req.body.price);
+            }
             else {
                 res.statusCode = 500
                 res.send({ "error": "book must have a price" })
                 return
             }
 
-            if (req.body.is_available)
+            if (req.body.is_available){
+                pricechange.set("is_available", req.body.is_available)
                 product.set("is_available", req.body.is_available);
+            }
             else {
                 res.statusCode = 500
                 res.send({ "error": "book must set the availability status" })
@@ -90,9 +118,17 @@ CreateProduct.post(
             //     res.statusCode = 500
             //     res.send({ "error": "book must have a image" })
             //     return
-            // }
+            await product.save(null, { useMasterKey: true })
 
-            product.save(null, { useMasterKey: true })
+            query = new Parse.Query("Product");
+            query.equalTo("name", req.body.name);
+            query.equalTo("author", req.body.author);
+            query.equalTo("publisher", req.body.publisher);
+            query.equalTo("category", req.body.category);
+            var product = (await query.first({ useMasterKey: true }));
+            
+            pricechange.set("product", product.id)
+            pricechange.save(null, { useMasterKey: true })
 
             res.send(JSON.stringify({ "status": "ok" }))
 

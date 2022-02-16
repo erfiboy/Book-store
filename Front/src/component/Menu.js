@@ -28,7 +28,7 @@ const Menu = () => {
                   <Link className="nav-link" to="/">خانه</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/books">کتاب ها</Link>
+                  <Link className="nav-link" to="/category">ژانرها و دسته ها</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/writers">نویسندگان</Link>

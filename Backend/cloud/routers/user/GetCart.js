@@ -1,6 +1,5 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import Cart from '../../models/cart.js'
 
 const GetCart = express.Router();
 
@@ -22,7 +21,6 @@ GetCart.get(
             else {
                 const products =  cart.attributes.productsList
                 let response = [];
-                response.push({"number": products.length});
                 let i = 0;
                 products.forEach(async element => {
                     const query = new Parse.Query("Product");
@@ -37,7 +35,7 @@ GetCart.get(
                     })
                     i = i+1;
                     if ( i == products.length){
-                        res.send(JSON.stringify( {"response" : response}))
+                        res.send(JSON.stringify( {"number": products.length, "response" : response}))
                     }
                 });
             }

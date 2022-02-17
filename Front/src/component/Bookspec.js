@@ -3,9 +3,37 @@ import headerimg from '../Header.jpg'
 import booktestimg from '../Book.jpg'
 import { useParams } from 'react-router-dom';
 import Cookies from 'universal-cookie'
+import { Chart } from 'react-charts'
 
 const cookies = new Cookies();
+const Chart_e = () => {
+    const data = [
+        {
+            label: 'Series 1',
+            data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
+        },
+        {
+            label: 'Series 2',
+            data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
+        }
+    ];
 
+    const axes = [{ primary: true, type: 'linear', position: 'bottom' }, { type: 'linear', position: 'left' }]
+
+    const lineChart = (
+        // A react-chart hyper-responsively and continuously fills the available
+        // space of its parent element automatically
+        <div
+            style={{
+                width: '400px',
+                height: '300px'
+            }}
+        >
+            <Chart data={data} axes={axes} />
+        </div>
+    )
+    return lineChart;
+}
 const Bookspec = () => {
     let [logstate, logupd] = useState('');
     let [incard, incardupd] = useState(false);
@@ -54,6 +82,16 @@ const Bookspec = () => {
             console.log(ans)
         }
     }
+    let stat = 0;
+    const changeChartState = () => {
+        if (stat == 0) {
+            document.getElementById('price_change').style = 'opacity: 1; display: block; borderRadius: 5px; padding: 1%; margin: auto; textAlign: center';
+            stat = 1;
+        } else {
+            document.getElementById('price_change').style = 'opacity: 0; display: none; borderRadius: 5px; padding: 1%; margin: auto; textAlign: center';
+            stat = 0;
+        }
+    }
     return (
         <>
             <h3 className='bg-dark' style={{ color: 'white', textAlign: 'center', paddingTop: '30px', marginBottom: '-15px', direction: 'rtl' }}>کتاب {des['name']}</h3>
@@ -78,12 +116,14 @@ const Bookspec = () => {
                         <div className="col-sm-2">
                         </div>
                         <div className="col-sm-4" style={{ color: 'white', direction: 'rtl', textAlign: 'right' }} >
-                            <div style={{ width: '100%', backgroundColor: '#00000000', color: 'white', border: '0', textAlign: 'center' }} className="form-control px-3">
-                                قیمت: {des['price']} ریال
-                            </div>
+                            <button onClick={changeChartState} style={{ width: '100%', marginRight: '1%' }} className="form-control btn btn-primary submit px-3">
+                                قیمت: {des['price']} ریال | مشاهده تغییرات قیمت
+                                <svg xmlns="http://www.w3.org/2000/svg" style={{ marginRight: '3%' }} width="16" height="16" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z" />
+                                </svg>
+                            </button>
                         </div>
                         <div className="col-sm-4" style={{ display: 'flex', color: 'white', direction: 'rtl', textAlign: 'right' }} >
-
                             <span style={{ color: 'white', width: '30%', display: 'flex' }} >
                                 <div className="form-control" style={{ border: '0', backgroundColor: '#00000000', color: 'white' }} >تعداد:</div>
                                 <input type="number" min="1" max="100" className="form-control" style={{ color: 'white' }} onChange={evt => { num = evt.target.value; }} />
@@ -114,18 +154,21 @@ const Bookspec = () => {
                         </div>
                     </div>
                 }
-                <div className="row">
-                    <div className="col-sm-2">
+                {available &&
+                    <div className="row">
+                        <div className="col-sm-2">
+                        </div>
+                        <div className="col-sm-4 bg-white charr" id='price_change' style={{opacity: '0', display: 'none'}} >
+                            <Chart_e />
+                        </div>
+                        <div className="col-sm-4" style={{ color: 'white', direction: 'rtl', textAlign: 'right' }} >
+                            {/* <div dangerouslySetInnerHTML={{ __html: res }}></div> */}
+                        </div>
+                        <div className="col-sm-2">
+                        </div>
                     </div>
-                    <div className="col-sm-4" style={{ color: 'white', direction: 'rtl', textAlign: 'right' }} >
+                }
 
-                    </div>
-                    <div className="col-sm-4" style={{ color: 'white', direction: 'rtl', textAlign: 'right' }} >
-                        <div dangerouslySetInnerHTML={{ __html: res }}></div>
-                    </div>
-                    <div className="col-sm-2">
-                    </div>
-                </div>
             </div>
         </>
     )

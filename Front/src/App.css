@@ -54,9 +54,10 @@
 }
 
 .charr{
-    transition: opacity 0.5s linear;
-    transition-duration: 0.5s;
-    -webkit-transition-duration: 0.5s;
-    -moz-transition-duration: 0.5s;
-    -o-transition-duration: 0.5s;
+    transition: height 0.25s linear;
+    transition-duration: 0.25s;
+    -webkit-transition-duration: 0.25s;
+    -moz-transition-duration: 0.25s;
+    -o-transition-duration: 0.25s;
+    border-radius: 5px;
 }

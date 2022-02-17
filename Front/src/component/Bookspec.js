@@ -6,36 +6,10 @@ import Cookies from 'universal-cookie'
 import { Chart } from 'react-charts'
 
 const cookies = new Cookies();
-const Chart_e = () => {
-    const data = [
-        {
-            label: 'Series 1',
-            data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
-        },
-        {
-            label: 'Series 2',
-            data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
-        }
-    ];
 
-    const axes = [{ primary: true, type: 'linear', position: 'bottom' }, { type: 'linear', position: 'left' }]
-
-    const lineChart = (
-        // A react-chart hyper-responsively and continuously fills the available
-        // space of its parent element automatically
-        <div
-            style={{
-                width: '400px',
-                height: '300px'
-            }}
-        >
-            <Chart data={data} axes={axes} />
-        </div>
-    )
-    return lineChart;
-}
 const Bookspec = () => {
     let [logstate, logupd] = useState('');
+    let [price, priceupd] = useState('');
     let [incard, incardupd] = useState(false);
     let [available, availableupd] = useState(false);
     let [res, resupd] = useState('');
@@ -53,11 +27,41 @@ const Bookspec = () => {
             let ans = await fetch('http://localhost:1337/status?id=' + id);
             ans = await ans.json();
             desupd(ans['response']);
+            let d = [];
+            let t = ans['price_response'].length;
+            ans['price_response'].forEach((item, index) => {
+                console.log()
+                d.push([t, item['price']])
+                t = t - 1;
+            });
+            const data = [
+                {
+                    label: 'Series 1',
+                    data: d
+                }
+            ];
+
+            const axes = [{ primary: true, type: 'linear', position: 'bottom' }, { type: 'linear', position: 'left' }]
+
+            const lineChart = (
+                // A react-chart hyper-responsively and continuously fills the available
+                // space of its parent element automatically
+                <div id='price_change'
+                    style={{
+                        height: '0',
+                        borderRadius: '5px'
+                    }}
+                    className="bg-white charr"
+                >
+                    <Chart data={data} axes={axes} />
+                </div>
+            )
+            priceupd(lineChart);
             availableupd(true);
             if ('true' != ans['response']['is_available']) {
                 availableupd(false);
             }
-            console.log(ans['response'])
+            console.log(ans)
         } catch (err) {
             desupd('No Connection!');
         }
@@ -85,10 +89,10 @@ const Bookspec = () => {
     let stat = 0;
     const changeChartState = () => {
         if (stat == 0) {
-            document.getElementById('price_change').style = 'opacity: 1; display: block; borderRadius: 5px; padding: 1%; margin: auto; textAlign: center';
+            document.getElementById('price_change').style = 'height: 300px;';
             stat = 1;
         } else {
-            document.getElementById('price_change').style = 'opacity: 0; display: none; borderRadius: 5px; padding: 1%; margin: auto; textAlign: center';
+            document.getElementById('price_change').style = 'height: 0;';
             stat = 0;
         }
     }
@@ -100,7 +104,7 @@ const Bookspec = () => {
                     <div className="col-sm-3">
                     </div>
                     <div className="col-sm-2">
-                        <img className="card-img-top" src={'http://localhost:1337/'+des['image']} style={{ textAlign: 'right' }} alt="Card image cap" />
+                        <img className="card-img-top" src={booktestimg} style={{ textAlign: 'right' }} alt="Card image cap" />
                     </div>
                     <div className="col-sm-4" style={{ marginTop: '2%', color: 'white', direction: 'rtl', textAlign: 'right' }}>
                         نویسنده: {des['author']} | دسته: {des['category']} | ناشر: {des['publisher']} <br />
@@ -124,6 +128,7 @@ const Bookspec = () => {
                             </button>
                         </div>
                         <div className="col-sm-4" style={{ display: 'flex', color: 'white', direction: 'rtl', textAlign: 'right' }} >
+
                             <span style={{ color: 'white', width: '30%', display: 'flex' }} >
                                 <div className="form-control" style={{ border: '0', backgroundColor: '#00000000', color: 'white' }} >تعداد:</div>
                                 <input type="number" min="1" max="100" className="form-control" style={{ color: 'white' }} onChange={evt => { num = evt.target.value; }} />
@@ -158,11 +163,8 @@ const Bookspec = () => {
                     <div className="row">
                         <div className="col-sm-2">
                         </div>
-                        <div className="col-sm-4 bg-white charr" id='price_change' style={{opacity: '0', display: 'none'}} >
-                            <Chart_e />
-                        </div>
-                        <div className="col-sm-4" style={{ color: 'white', direction: 'rtl', textAlign: 'right' }} >
-                            {/* <div dangerouslySetInnerHTML={{ __html: res }}></div> */}
+                        <div className="col-sm-8">
+                            {price}
                         </div>
                         <div className="col-sm-2">
                         </div>

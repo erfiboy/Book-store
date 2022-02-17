@@ -1,10 +1,10 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import ParseDashboard from 'parse-dashboard';
-import { createServer } from 'http';
-import bodyParser from 'body-parser'
-import cors from 'cors';
+import cors from 'cors'
+import dotenv from 'dotenv'
+import express from 'express'
 import api from './configserver.js'
+import { createServer } from 'http'
+import bodyParser from 'body-parser'
+import ParseDashboard from 'parse-dashboard'
 
 import SignUp from './cloud/routers/user/Signup.js'
 import Login from './cloud/routers/user/Login.js'
@@ -49,8 +49,8 @@ const BookStoreDashboard = () => {
             ],
         },
         options
-    );
-
+        );
+        
     app.use(process.env.DASHBOARD_PATH, dashboard);
 }
 
@@ -58,7 +58,7 @@ const DefineRoles = () => {
     const guest_role = new Parse.ACL();
     const guest = new Parse.Role("Guest", guest_role);
     guest.save();
-
+    
     const Admin_roles = new Parse.ACL();
     Admin_roles.setPublicWriteAccess(true);
     Admin_roles.setPublicReadAccess(true);
@@ -77,7 +77,7 @@ const start = () => {
     // DefineRoles();
     listen();
 } 
-app.use(cors()); 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/signup', SignUp);

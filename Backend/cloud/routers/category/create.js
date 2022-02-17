@@ -14,6 +14,7 @@ CategoryCreate.post(
         try {
             if (!req.body.name){
                 res.send(JSON.stringify({"error": "category must have a name"}))
+                return
             }
 
             Parse.User.enableUnsafeCurrentUser()

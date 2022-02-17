@@ -15,6 +15,7 @@ AuthorCreate.post(
 
             if (!req.body.name){
                 res.send(JSON.stringify({"error": "author must have a name"}))
+                return
             }
 
             Parse.User.enableUnsafeCurrentUser()

@@ -52,3 +52,11 @@
 .row {
     direction: rtl;
 }
+
+.charr{
+    transition: opacity 0.5s linear;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+}

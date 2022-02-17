@@ -39,7 +39,7 @@ const Popbooks = () => {
                 t.push(
                     <div className="col-sm-3">
                         <div className="card">
-                            <img className="card-img-top" src={booktestimg} height='400px' alt="Card image cap" />
+                            <img className="card-img-top" src={'http://localhost:1337/'+item['image']} height='400px' alt="Card image cap" />
                             <div className="card-body">
                                 <h5 className="card-title">{item['name']}</h5>
                                 <p className="card-text">قیمت: {item['price']}</p>

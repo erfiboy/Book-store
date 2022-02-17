@@ -100,7 +100,7 @@ const Bookspec = () => {
                     <div className="col-sm-3">
                     </div>
                     <div className="col-sm-2">
-                        <img className="card-img-top" src={booktestimg} style={{ textAlign: 'right' }} alt="Card image cap" />
+                        <img className="card-img-top" src={'http://localhost:1337/'+des['image']} style={{ textAlign: 'right' }} alt="Card image cap" />
                     </div>
                     <div className="col-sm-4" style={{ marginTop: '2%', color: 'white', direction: 'rtl', textAlign: 'right' }}>
                         نویسنده: {des['author']} | دسته: {des['category']} | ناشر: {des['publisher']} <br />

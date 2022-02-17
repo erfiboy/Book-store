@@ -12,6 +12,11 @@ AuthorCreate.post(
     '/', type,
     expressAsyncHandler( async (req,res) => {
         try {
+
+            if (!req.body.name){
+                res.send(JSON.stringify({"error": "author must have a name"}))
+            }
+
             const query = new Parse.Query("Author");
             query.equalTo("name", req.body.name);
             var author = (await query.first({ useMasterKey: true }));

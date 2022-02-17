@@ -12,6 +12,10 @@ CategoryCreate.post(
     '/',type,
     expressAsyncHandler( async (req,res) => {
         try {
+            if (!req.body.name){
+                res.send(JSON.stringify({"error": "category must have a name"}))
+            }
+
             const query = new Parse.Query("Category");
             query.equalTo("name", req.body.name);
             var category = (await query.first({ useMasterKey: true }));

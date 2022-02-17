@@ -15,9 +15,24 @@ AuthorCreate.post(
 
             if (!req.body.name){
                 res.send(JSON.stringify({"error": "author must have a name"}))
+                return
             }
 
-            const query = new Parse.Query("Author");
+            Parse.User.enableUnsafeCurrentUser()
+            await Parse.User.become(req.body.token)
+            const user = Parse.User.current()
+
+
+            let query = new Parse.Query("_Role");
+            query.equalTo("users", user);
+            var role = (await query.first({ useMasterKey: true }));
+            console.log(role)
+            if (role == undefined || role.attributes.name != "Admin"){
+                res.send({"error" : "user must have admin privileges"})
+                return
+            }
+
+            query = new Parse.Query("Author");
             query.equalTo("name", req.body.name);
             var author = (await query.first({ useMasterKey: true }));
 

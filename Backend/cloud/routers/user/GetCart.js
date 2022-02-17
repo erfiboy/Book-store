@@ -28,6 +28,10 @@ GetCart.get(
                     const query = new Parse.Query("Product");
                     query.equalTo("objectId", element);
                     const book = await query.first({ useMasterKey: true })
+                    if (book == undefined){
+                        res.send(JSON.stringify( {"error" : "no such book with that id in your cart"}))
+                        return
+                    }
                     console.log(book)
                     response.push({
                         "id": book.id,
@@ -46,7 +50,7 @@ GetCart.get(
                 });
             }
         } catch (error) {
-            res.send(JSON.stringify( {"error" : error}))
+            res.send(JSON.stringify( {"error" : error.message}))
         }
     })
 )

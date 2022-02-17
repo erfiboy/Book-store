@@ -20,7 +20,8 @@ Status.get(
             pricechange.forEach(element => {
                 price_response.push({
                     "price": element.attributes.price,
-                    "is_available":  element.attributes.is_available
+                    "is_available":  element.attributes.is_available,
+                    "createdAt":  element.attributes.createdAt
                 })
             });
 

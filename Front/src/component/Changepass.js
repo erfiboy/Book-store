@@ -40,8 +40,9 @@ const Changepass = () => {
       if (ans['response'] != 'successful') {
         throw 'رمز عبور اشتباه است.';
       }
-      setTimeout(() => { window.location.replace('http://localhost:3000/dashboard'); }, 500);
-      upd('<div class="alert alert-success" role="alert">رمز عبور تغییر یافت. مننتظر بمانید.</div>');
+      cookies.remove('token');
+      setTimeout(() => { window.location.replace('http://localhost:3000'); }, 500);
+      upd('<div class="alert alert-success" role="alert">رمز عبور تغییر یافت. دوباره وارد شوید.</div>');
     } catch (err) {
       upd('<div class="alert alert-danger" role="alert">' + err + '</div>');
       console.log(err);

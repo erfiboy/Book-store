@@ -21,7 +21,16 @@ const Bookspec = () => {
             logupd('false');
         else {
             logupd('true');
-            incardupd(true)
+            let token = cookies.get('token');
+            let ans = await fetch('http://localhost:1337/get-cart?token=' + token);
+            ans = await ans.json();
+            console.log(ans);
+            if (ans['response'] != '') {
+                ans['response'].forEach((item, index) => {
+                    if (item['id'] == id)
+                        incardupd(true)
+                });
+            }
         }
         try {
             let ans = await fetch('http://localhost:1337/status?id=' + id);
@@ -155,6 +164,17 @@ const Bookspec = () => {
                                 حذف از سبد خرید
                             </button>
                         </div>
+                        <div className="col-sm-2">
+                        </div>
+                    </div>
+                }
+                {available &&
+                    <div className="row" style={{ marginBottom: '2%' }}>
+                        <div className="col-sm-2">
+                        </div>
+                        <div className="col-sm-4" style={{ color: 'white', direction: 'rtl', textAlign: 'right' }} >
+                        </div>
+                        <div className="col-sm-4" style={{ color: 'white', direction: 'rtl', textAlign: 'center' }} dangerouslySetInnerHTML={{ __html: res }}></div>
                         <div className="col-sm-2">
                         </div>
                     </div>

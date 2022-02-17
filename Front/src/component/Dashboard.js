@@ -34,84 +34,85 @@ const Dashboard = () => {
   useEffect(async () => {
     if (cookies.get('token') == undefined)
       setTimeout(() => { window.location.replace('http://localhost:3000'); }, 0);
-    try {
-      let token = cookies.get('token');
-      let ans = await fetch('http://localhost:1337/user-spec?token=' + token);
-      ans = await ans.json();
-      console.log(ans);
-      let t = 'آقا/خانم ' + ans['firstname'] + ' ' + ans['lastname'] + ' خوش آمدید! <br /> ایمیل شما: ' + ans['email'];
-      upd(t);
-      ans = await fetch('http://localhost:1337/get-cart?token=' + token);
-      ans = await ans.json();
-      console.log(ans);
-      if (ans['response'] != '') {
-        let temp = [];
-        let f = 0;
-        temp.push(
-          <div>
-            <div className='row'>
-              <div className="col-sm-2" style={{ textAlign: 'center' }}>
-                نام
-              </div>
-              <div className="col-sm-2" style={{ textAlign: 'center' }}>
-                نویسنده
-              </div>
-              <div className="col-sm-2" style={{ textAlign: 'center' }}>
-                ناشر
-              </div>
-              <div className="col-sm-2" style={{ textAlign: 'center' }}>
-                قیمت
-              </div>
-              <div className="col-sm-1" style={{ textAlign: 'center' }}>
-                تعداد
-              </div>
-            </div>
-          </div>
-        );
-        ans['response'].forEach((item, index) => {
-          console.log(item['name']);
-          f = f + +item['price'] * +item['number'];
+    else
+      try {
+        let token = cookies.get('token');
+        let ans = await fetch('http://localhost:1337/user-spec?token=' + token);
+        ans = await ans.json();
+        console.log(ans);
+        let t = 'آقا/خانم ' + ans['firstname'] + ' ' + ans['lastname'] + ' خوش آمدید! <br /> ایمیل شما: ' + ans['email'];
+        upd(t);
+        ans = await fetch('http://localhost:1337/get-cart?token=' + token);
+        ans = await ans.json();
+        console.log(ans);
+        if (ans['response'] != '') {
+          let temp = [];
+          let f = 0;
           temp.push(
             <div>
               <div className='row'>
-                <div className="col-sm-2" style={{ textAlign: 'center', fontSize: 'smaller' }}>
-                  <Link to={"/book/" + item['id']}>
-                    <div style={{ color: 'black' }}>
-                      {item['name']}
-                    </div>
-                  </Link>
+                <div className="col-sm-2" style={{ textAlign: 'center' }}>
+                  نام
                 </div>
-                <div className="col-sm-2" style={{ textAlign: 'center', fontSize: 'smaller' }}>
-                  {item['author']}
+                <div className="col-sm-2" style={{ textAlign: 'center' }}>
+                  نویسنده
                 </div>
-                <div className="col-sm-2" style={{ textAlign: 'center', fontSize: 'smaller' }}>
-                  {item['publisher']}
+                <div className="col-sm-2" style={{ textAlign: 'center' }}>
+                  ناشر
                 </div>
-                <div className="col-sm-2" style={{ textAlign: 'center', fontSize: 'smaller' }}>
-                  {item['price']}
+                <div className="col-sm-2" style={{ textAlign: 'center' }}>
+                  قیمت
                 </div>
-                <div className="col-sm-1" style={{ textAlign: 'center', fontSize: 'smaller' }}>
-                  {item['number']}
+                <div className="col-sm-1" style={{ textAlign: 'center' }}>
+                  تعداد
                 </div>
               </div>
             </div>
           );
-        });
-        temp.push(
-          <div>
-            <div className='row'>
-              <div className="col-sm-3" style={{ textAlign: 'center' }}>
-                قیمت کل: {f}
+          ans['response'].forEach((item, index) => {
+            console.log(item['name']);
+            f = f + +item['price'] * +item['number'];
+            temp.push(
+              <div>
+                <div className='row'>
+                  <div className="col-sm-2" style={{ textAlign: 'center', fontSize: 'smaller' }}>
+                    <Link to={"/book/" + item['id']}>
+                      <div style={{ color: 'black' }}>
+                        {item['name']}
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="col-sm-2" style={{ textAlign: 'center', fontSize: 'smaller' }}>
+                    {item['author']}
+                  </div>
+                  <div className="col-sm-2" style={{ textAlign: 'center', fontSize: 'smaller' }}>
+                    {item['publisher']}
+                  </div>
+                  <div className="col-sm-2" style={{ textAlign: 'center', fontSize: 'smaller' }}>
+                    {item['price']}
+                  </div>
+                  <div className="col-sm-1" style={{ textAlign: 'center', fontSize: 'smaller' }}>
+                    {item['number']}
+                  </div>
+                </div>
+              </div>
+            );
+          });
+          temp.push(
+            <div>
+              <div className='row'>
+                <div className="col-sm-3" style={{ textAlign: 'center' }}>
+                  قیمت کل: {f}
+                </div>
               </div>
             </div>
-          </div>
-        );
-        updCards(temp);
-      } else
-        updCards('شما خریدی نداشتید.');
-    } catch {
-      upd('No connection to backend!');
-    }
+          );
+          updCards(temp);
+        } else
+          updCards('شما خریدی نداشتید.');
+      } catch {
+        upd('No connection to backend!');
+      }
   }, []);
   return (
     <>

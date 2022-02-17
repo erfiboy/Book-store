@@ -80,6 +80,9 @@ const start = () => {
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public')); 
+app.use('/uploads', express.static('uploads'));
+
 app.use('/signup', SignUp);
 app.use('/login', Login);
 app.use('/logout', Logout);

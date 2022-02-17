@@ -34,6 +34,7 @@ Status.get(
                 "publisher" : product.attributes.publisher,
                 "summary" : product.attributes.summary,
                 "description" : product.attributes.description,
+                "image": element.attributes.image_tag
             }
             const result = {"response" : response, "price_response" : price_response}
             res.send(JSON.stringify(result))

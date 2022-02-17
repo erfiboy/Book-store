@@ -50,7 +50,8 @@ List.get(
                     "is_available" : element.attributes.is_available,
                     "category" : element.attributes.category,
                     "publisher" : element.attributes.publisher,
-                    "summary" : element.attributes.summary
+                    "summary" : element.attributes.summary,
+                    "image": element.attributes.image_tag
                 })
             })
             const result = {"response" : response}

@@ -1,4 +1,6 @@
-import express from 'express';
+import express from 'express'
+import multer  from 'multer'
+var upload = multer({ dest: 'uploads/'});
 import expressAsyncHandler from 'express-async-handler';
 import Product from '../../models/product.js'
 import PriceChange from '../../models/pricechange.js'
@@ -7,12 +9,14 @@ import FindOrCreateAuthor from '../author/findOrCreate.js'
 
 const CreateProduct = express.Router();
 
+var type = upload.single('image');
+
 CreateProduct.post(
-    '/',
+    '/', type,
     expressAsyncHandler(async (req, res) => {
         try {
             const pricechange = new PriceChange()
-            
+   
             let query = new Parse.Query("Product");
             query.equalTo("name", req.body.name);
             query.equalTo("author", req.body.author);
@@ -53,7 +57,7 @@ CreateProduct.post(
                 res.send({ "error": "book must have a author" })
                 return
             }
-            console.log(req.body.publisher)
+
             if (req.body.publisher)
                 product.set("publisher", req.body.publisher);
             else {
@@ -110,14 +114,16 @@ CreateProduct.post(
                 return
             }
 
-            // if (req.body.image) {
-            //     let image = new Parse.File()
-            //     product.set("image", req.body.image);
-            // }
-            // else {
-            //     res.statusCode = 500
-            //     res.send({ "error": "book must have a image" })
-            //     return
+            if (req.file) {
+                product.set("image_tag", "uploads/" + req.file.filename);
+            }
+
+            else {
+                res.statusCode = 500
+                res.send({ "error": "book must have a image" })
+                return
+            }
+            
             await product.save(null, { useMasterKey: true })
 
             query = new Parse.Query("Product");

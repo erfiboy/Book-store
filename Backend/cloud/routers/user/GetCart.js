@@ -36,6 +36,7 @@ GetCart.get(
                         "price": book.attributes.price,
                         "is_available" : book.attributes.is_available,
                         "publisher" : book.attributes.publisher,
+                        "image": book.attributes.image_tag,
                         "number" : numbers[i],
                     })
                     i = i+1;

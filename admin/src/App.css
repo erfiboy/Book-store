@@ -63,6 +63,8 @@
 }
 
 .sidenav{
+    width: 15vw;
+    position: fixed;
     height: 100vh;
     direction: rtl;
     text-align: right;

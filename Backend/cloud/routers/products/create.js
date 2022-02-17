@@ -17,7 +17,20 @@ CreateProduct.post(
         try {
             const pricechange = new PriceChange()
    
-            let query = new Parse.Query("Product");
+            Parse.User.enableUnsafeCurrentUser()
+            await Parse.User.become(req.body.token)
+            const user = Parse.User.current()
+
+            let query = new Parse.Query("_Role");
+            query.equalTo("users", user);
+            var role = (await query.first({ useMasterKey: true }));
+            console.log(role)
+            if (role == undefined || role.attributes.name != "Admin"){
+                res.send({"error" : "user must have admin privileges"})
+                return
+            }
+
+            query = new Parse.Query("Product");
             query.equalTo("name", req.body.name);
             query.equalTo("author", req.body.author);
             query.equalTo("publisher", req.body.publisher);

@@ -15,7 +15,7 @@ GetCart.get(
             cart_query.equalTo("userId", user.id);
             const cart = (await cart_query.first({useMasterKey: true}));
 
-            if (cart === undefined) {
+            if (cart === undefined || art.attributes.productsList == []) {
                 res.send(JSON.stringify( {"response" : []}))
             }
             else {

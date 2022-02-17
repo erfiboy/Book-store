@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState, useCallback, } from 'react';
+import Cookies from 'universal-cookie'
 import { Nav } from "react-bootstrap";
 import { fs } from 'fs'
 import { withRouter } from "react-router";
@@ -11,10 +12,14 @@ import {
   Link
 } from "react-router-dom";
 
+const cookies = new Cookies();
+
 const Side = props => {
   let name, img, imgname, author, publisher, category, summary, price, desc, isa;
   let [author_list, upd] = useState([]);
   useEffect(async () => {
+    if (cookies.get('admin_token') == undefined)
+      setTimeout(() => { window.location.replace('http://localhost:3000/'); }, 0);
     try {
       let ans = await fetch('http://localhost:1337/list');
       ans = await ans.json();
@@ -48,6 +53,7 @@ const Side = props => {
     }
   }, []);
   const submit = () => {
+    let token = cookies.get('admin_token');
     const formData = new FormData();
     console.log(img);
 
@@ -88,6 +94,10 @@ const Side = props => {
     formData.append(
       "is_available",
       isa
+    );
+    formData.append(
+      "token",
+      token
     );
     
 

@@ -15,7 +15,7 @@ const Login = () => {
     let user, pass;
     useEffect(async () => {
         if(cookies.get('admin_token')!=undefined)
-          setTimeout(() => { window.location.replace('http://localhost:3006'); }, 0);
+          setTimeout(() => { window.location.replace('http://localhost:3000/dashboard'); }, 0);
     },[]);
     const onFinish = async (values) => {
         console.log('Success:', user);
@@ -25,18 +25,14 @@ const Login = () => {
             if (ans['token'] == undefined) {
                 throw 'نام کاربری یا رمز عبور تکراری است.';
             }
-            cookies.set('token', ans['token'])
-            setTimeout(() => { window.location.replace('http://localhost:3006'); }, 500);
+            cookies.set('admin_token', ans['token'])
+            setTimeout(() => { window.location.replace('http://localhost:3000/dashboard'); }, 500);
             upd('<div class="alert alert-success" role="alert">با موفقیت وارد شدید!</div>');
         } catch (err) {
             upd('<div class="alert alert-danger" role="alert">' + err + '</div>');
             console.log(err);
         }
     };
-
-    const onFinishFailed = useCallback((errorInfo) => {
-        console.log('Failed:', errorInfo);
-    }, []);
     return (
         <>
             <div className='row bg-dark' style={{ paddingTop: '10%', height: '100vh' }}>

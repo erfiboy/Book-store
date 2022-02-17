@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState, useCallback, } from 'react';
+import Cookies from 'universal-cookie'
 import { Nav } from "react-bootstrap";
 import { fs } from 'fs'
 import { withRouter } from "react-router";
@@ -11,10 +12,14 @@ import {
   Link
 } from "react-router-dom";
 
+const cookies = new Cookies();
+
 const Side = props => {
   let name, img, imgname;
   let [author_list, upd] = useState([]);
   useEffect(async () => {
+    if (cookies.get('admin_token') == undefined)
+      setTimeout(() => { window.location.replace('http://localhost:3000/'); }, 0);
     try {
       let ans = await fetch('http://localhost:1337/category/list');
       ans = await ans.json();
@@ -42,26 +47,31 @@ const Side = props => {
     }
   }, []);
   const submit = () => {
-      const formData = new FormData(); 
-      console.log(img); 
-     
-      // Update the formData object 
-      formData.append( 
-        "image", 
-        img,
-        imgname
-      ); 
-      formData.append( 
-        "name", 
-        name
-      ); 
-     
-      // Details of the uploaded file 
-     
-      // Request made to the backend api 
-      // Send formData object 
-      axios.post("http://localhost:1337/category/create", formData); 
-      document.location.reload(true);
+    let token = cookies.get('admin_token');
+    const formData = new FormData();
+    console.log(img);
+
+    // Update the formData object 
+    formData.append(
+      "image",
+      img,
+      imgname
+    );
+    formData.append(
+      "name",
+      name
+    );
+    formData.append(
+      "token",
+      token
+    );
+
+    // Details of the uploaded file 
+
+    // Request made to the backend api 
+    // Send formData object 
+    axios.post("http://localhost:1337/category/create", formData);
+    document.location.reload(true);
   }
   return (
     <div style={{ padding: '5%' }}>

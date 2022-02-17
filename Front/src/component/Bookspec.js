@@ -79,6 +79,7 @@ const Bookspec = () => {
         if (logstate == 'false')
             resupd('<div class="alert alert-danger" role="alert">ابتدا وارد اکانت خود شوید.</div>');
         else {
+            incardupd(true);
             let ans = await fetch('http://localhost:1337/add-cart?id=' + id + '&number=' + num + '&token=' + cookies.get('token'));
             ans = await ans.json();
             resupd('<div class="alert alert-success" role="alert">به سبد خرید شما اضافه شد.</div>');
@@ -89,6 +90,7 @@ const Bookspec = () => {
         if (logstate == 'false')
             resupd('<div class="alert alert-danger" role="alert">ابتدا وارد اکانت خود شوید.</div>');
         else {
+            incardupd(false);
             let ans = await fetch('http://localhost:1337/add-cart?id=' + id + '&number=0&token=' + cookies.get('token'));
             ans = await ans.json();
             resupd('<div class="alert alert-success" role="alert">کالا از سبد خرید شما حذف شد.</div>');
@@ -113,7 +115,7 @@ const Bookspec = () => {
                     <div className="col-sm-3">
                     </div>
                     <div className="col-sm-2">
-                        <img className="card-img-top" src={booktestimg} style={{ textAlign: 'right' }} alt="Card image cap" />
+                        <img className="card-img-top" src={'http://localhost:1337/'+des['image']} style={{ textAlign: 'right' }} alt="Card image cap" />
                     </div>
                     <div className="col-sm-4" style={{ marginTop: '2%', color: 'white', direction: 'rtl', textAlign: 'right' }}>
                         نویسنده: {des['author']} | دسته: {des['category']} | ناشر: {des['publisher']} <br />

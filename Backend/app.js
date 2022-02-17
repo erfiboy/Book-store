@@ -6,24 +6,25 @@ import { createServer } from 'http'
 import bodyParser from 'body-parser'
 import ParseDashboard from 'parse-dashboard'
 
-import SignUp from './cloud/routers/user/Signup.js'
+import Cart from './cloud/routers/user/Cart.js'
 import Login from './cloud/routers/user/Login.js'
 import Logout from './cloud/routers/user/Logout.js'
-import Cart from './cloud/routers/user/Cart.js'
-import UserSpec from './cloud/routers/user/UserSpec.js'
-import ChangePass from './cloud/routers/user/ChangePass.js'
-import AddToCart from './cloud/routers/user/AddToCart.js'
-import DeleteFromCart from './cloud/routers/user/DeleteFromCart.js'
+import SignUp from './cloud/routers/user/Signup.js'
 import GetCart from './cloud/routers/user/GetCart.js'
+import UserSpec from './cloud/routers/user/UserSpec.js'
+import AddToCart from './cloud/routers/user/AddToCart.js'
+import ChangePass from './cloud/routers/user/ChangePass.js'
+import DeleteFromCart from './cloud/routers/user/DeleteFromCart.js'
 
-import Status from './cloud/routers/products/status.js'
 import List from './cloud/routers/products/list.js'
+import Status from './cloud/routers/products/status.js'
 import CreateProduct from './cloud/routers/products/create.js'
 
 import CategoryList from './cloud/routers/category/list.js'
 import CategoryCreate from './cloud/routers/category/create.js'
 
 import AuthorList from './cloud/routers/author/list.js'
+import AuthorCreate from './cloud/routers/author/create.js'
 
 const app = express();
 dotenv.config(); // Loads environment variables from .env file
@@ -101,9 +102,7 @@ app.use('/category/list', CategoryList);
 app.use('/category/create', CategoryCreate);
 
 app.use('/author/list', AuthorList);
+app.use('/author/create', AuthorCreate);
 
-app.get('/test', function (req, res) {
-    res.send("salam");
-});
 
 start();

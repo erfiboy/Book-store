@@ -1,14 +1,14 @@
-import express from 'express'
 import multer  from 'multer'
-var upload = multer({ dest: 'uploads/'});
-import expressAsyncHandler from 'express-async-handler';
+import express from 'express'
 import Product from '../../models/product.js'
 import PriceChange from '../../models/pricechange.js'
-import FindOrCreateCategory from '../category/findOrCreate.js'
+import expressAsyncHandler from 'express-async-handler'
 import FindOrCreateAuthor from '../author/findOrCreate.js'
+import FindOrCreateCategory from '../category/findOrCreate.js'
 
 const CreateProduct = express.Router();
 
+var upload = multer({ dest: 'uploads/product/'});
 var type = upload.single('image');
 
 CreateProduct.post(
@@ -115,7 +115,7 @@ CreateProduct.post(
             }
 
             if (req.file) {
-                product.set("image_tag", "uploads/" + req.file.filename);
+                product.set("image_tag", "uploads/product/" + req.file.filename);
             }
 
             else {

@@ -50,7 +50,7 @@ GetCart.get(
                 });
             }
         } catch (error) {
-            res.send(JSON.stringify( {"error" : error}))
+            res.send(JSON.stringify( {"error" : error.message}))
         }
     })
 )

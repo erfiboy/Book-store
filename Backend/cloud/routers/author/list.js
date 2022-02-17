@@ -13,6 +13,7 @@ AuthorList.get(
             authors.forEach(element =>{
                 response.push({
                     "name": element.attributes.name,
+                    "image": element.attributes.image_tag
                 })
             })
 

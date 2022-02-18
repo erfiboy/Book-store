@@ -60,12 +60,12 @@ services:
       context: ./Admin/
       target: production
     restart: always
-    container_name: Front_container
+    container_name: Admin_container
     ports:
       - "3006:80"
     volumes:
-      - ./Front/default.conf:/etc/nginx/conf.d/default.conf
-      - ./Front/nginx.conf:/etc/nginx/nginx.conf
+      - ./Admin/default.conf:/etc/nginx/conf.d/default.conf
+      - ./Admin/nginx.conf:/etc/nginx/nginx.conf
 
 volumes:
   postgresql_master_data:

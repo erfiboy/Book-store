@@ -15,18 +15,18 @@ const Login = () => {
     let user, pass;
     useEffect(async () => {
         if(cookies.get('token')!=undefined)
-          setTimeout(() => { window.location.replace('http://localhost:3000'); }, 0);
+          setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH); }, 0);
     },[]);
     const onFinish = async (values) => {
         console.log('Success:', user);
         try {
-            let ans = await fetch('http://localhost:1337/login?username=' + user + '&password=' + pass);
+            let ans = await fetch(process.env.REACT_APP_BACKEND+'login?username=' + user + '&password=' + pass);
             ans = await ans.json();
             if (ans['token'] == undefined) {
                 throw 'نام کاربری یا رمز عبور تکراری است.';
             }
             cookies.set('token', ans['token'])
-            setTimeout(() => { window.location.replace('http://localhost:3000'); }, 500);
+            setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH); }, 500);
             upd('<div class="alert alert-success" role="alert">با موفقیت وارد شدید!</div>');
         } catch (err) {
             upd('<div class="alert alert-danger" role="alert">' + err + '</div>');

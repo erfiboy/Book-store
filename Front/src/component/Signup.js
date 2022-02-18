@@ -15,21 +15,21 @@ const Signup = () => {
     let user, pass1, pass2, name, email, fam;
     useEffect(async () => {
         if(cookies.get('token')!=undefined)
-          setTimeout(() => { window.location.replace('http://localhost:3000'); }, 0);
+          setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH); }, 0);
         
     },[]);
     const onFinish = async () => {
         console.log('Success:', user);
         try {
-            let ans = await fetch('http://localhost:1337/signup?username=' + user + '&password=' + pass1 + '&secpassword=' + pass2 + '&email=' + email + '&firstname=' + name + '&lastname=' + fam);
+            let ans = await fetch(process.env.REACT_APP_BACKEND+'signup?username=' + user + '&password=' + pass1 + '&secpassword=' + pass2 + '&email=' + email + '&firstname=' + name + '&lastname=' + fam);
             ans = await ans.json();
-            console.log('http://localhost:1337/signup?username=' + user + '&password=' + pass1 + '&secpassword=' + pass2 + '&email=' + email + '&firstname=' + name + '&lastname=' + fam)
+            console.log(process.env.REACT_APP_BACKEND+'signup?username=' + user + '&password=' + pass1 + '&secpassword=' + pass2 + '&email=' + email + '&firstname=' + name + '&lastname=' + fam)
             console.log(ans)
             if (ans['token'] == undefined) {
                 throw 'نام کاربری یا رمز عبور تکراری است.';
             }
             cookies.set('token', ans['token'])
-            setTimeout(() => {window.location.replace('http://localhost:3000');}, 500);
+            setTimeout(() => {window.location.replace(process.env.REACT_APP_PATH);}, 500);
             upd('<div class="alert alert-success" role="alert">با موفقیت وارد شدید!</div>');
         } catch (err) {
             upd('<div class="alert alert-danger" role="alert">' + err + '</div>');

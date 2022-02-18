@@ -22,7 +22,7 @@ const Bookspec = () => {
         else {
             logupd('true');
             let token = cookies.get('token');
-            let ans = await fetch('http://localhost:1337/get-cart?token=' + token);
+            let ans = await fetch(process.env.REACT_APP_BACKEND+'get-cart?token=' + token);
             ans = await ans.json();
             console.log(ans);
             if (ans['response'] != '') {
@@ -33,7 +33,7 @@ const Bookspec = () => {
             }
         }
         try {
-            let ans = await fetch('http://localhost:1337/status?id=' + id);
+            let ans = await fetch(process.env.REACT_APP_BACKEND+'status?id=' + id);
             ans = await ans.json();
             desupd(ans['response']);
             let d = [];
@@ -80,7 +80,7 @@ const Bookspec = () => {
             resupd('<div class="alert alert-danger" role="alert">ابتدا وارد اکانت خود شوید.</div>');
         else {
             incardupd(true);
-            let ans = await fetch('http://localhost:1337/add-cart?id=' + id + '&number=' + num + '&token=' + cookies.get('token'));
+            let ans = await fetch(process.env.REACT_APP_BACKEND+'add-cart?id=' + id + '&number=' + num + '&token=' + cookies.get('token'));
             ans = await ans.json();
             resupd('<div class="alert alert-success" role="alert">به سبد خرید شما اضافه شد.</div>');
             console.log(ans)
@@ -91,7 +91,7 @@ const Bookspec = () => {
             resupd('<div class="alert alert-danger" role="alert">ابتدا وارد اکانت خود شوید.</div>');
         else {
             incardupd(false);
-            let ans = await fetch('http://localhost:1337/add-cart?id=' + id + '&number=0&token=' + cookies.get('token'));
+            let ans = await fetch(process.env.REACT_APP_BACKEND+'add-cart?id=' + id + '&number=0&token=' + cookies.get('token'));
             ans = await ans.json();
             resupd('<div class="alert alert-success" role="alert">کالا از سبد خرید شما حذف شد.</div>');
             console.log(ans)
@@ -115,7 +115,7 @@ const Bookspec = () => {
                     <div className="col-sm-3">
                     </div>
                     <div className="col-sm-2">
-                        <img className="card-img-top" src={'http://localhost:1337/'+des['image']} style={{ textAlign: 'right' }} alt="Card image cap" />
+                        <img className="card-img-top" src={process.env.REACT_APP_BACKEND+des['image']} style={{ textAlign: 'right' }} alt="Card image cap" />
                     </div>
                     <div className="col-sm-4" style={{ marginTop: '2%', color: 'white', direction: 'rtl', textAlign: 'right' }}>
                         نویسنده: {des['author']} | دسته: {des['category']} | ناشر: {des['publisher']} <br />

@@ -15,7 +15,7 @@ const Writers = () => {
   let [author_list, upd] = useState([]);
   useEffect(async () => {
     try {
-      let ans = await fetch('http://localhost:1337/category/list');
+      let ans = await fetch(process.env.REACT_APP_BACKEND+'category/list');
       ans = await ans.json();
       console.log(ans);
       let t = [];
@@ -24,7 +24,7 @@ const Writers = () => {
           t.push(
             <div className="col-sm-3" style={{ display: 'flex' }}>
               <div className="card">
-                <img className="card-img-top" src={'http://localhost:1337/' + item['image']} height='400px' alt="Card image cap" />
+                <img className="card-img-top" src={process.env.REACT_APP_BACKEND + item['image']} height='400px' alt="Card image cap" />
                 <div className="card-body bg-dark" style={{ textAlign: 'center' }}>
                   <Link to={"/category/" + item['name']}>
                     {item['name']}

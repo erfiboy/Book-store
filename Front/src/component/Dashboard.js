@@ -28,21 +28,21 @@ const Dashboard = () => {
   let [total, updTotal] = useState(0);
   const logout = async () => {
     cookies.remove('token');
-    setTimeout(() => { window.location.replace('http://localhost:3000'); }, 50);
+    setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH); }, 50);
     // fetch('http://localhost:1337/logout');
   }
   useEffect(async () => {
     if (cookies.get('token') == undefined)
-      setTimeout(() => { window.location.replace('http://localhost:3000'); }, 0);
+      setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH); }, 0);
     else
       try {
         let token = cookies.get('token');
-        let ans = await fetch('http://localhost:1337/user-spec?token=' + token);
+        let ans = await fetch(process.env.REACT_APP_BACKEND+'user-spec?token=' + token);
         ans = await ans.json();
         console.log(ans);
         let t = 'آقا/خانم ' + ans['firstname'] + ' ' + ans['lastname'] + ' خوش آمدید! <br /> ایمیل شما: ' + ans['email'];
         upd(t);
-        ans = await fetch('http://localhost:1337/get-cart?token=' + token);
+        ans = await fetch(process.env.REACT_APP_BACKEND+'get-cart?token=' + token);
         ans = await ans.json();
         console.log(ans);
         if (ans['response'] != '') {

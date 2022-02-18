@@ -35,6 +35,8 @@ const cookies = new Cookies();
 // cookies.remove('token','wow!')
 
 function App() {
+  console.log(process.env.REACT_APP_PATH)
+  console.log(process.env.REACT_APP_BACKEND)
   return (
     <>
       <Menu />

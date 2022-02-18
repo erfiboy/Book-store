@@ -29,19 +29,19 @@ const Changepass = () => {
   useEffect(async () => {
     // console.log('BBB ' + cookies.get('token'))
     if (cookies.get('token') == undefined)
-      setTimeout(() => { window.location.replace('http://localhost:3000'); }, 0);
+      setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH); }, 0);
   }, []);
   const onFinish = async (values) => {
     try {
-      let ans = await fetch('http://localhost:1337/change-pass?curpassword=' + oldpass + '&newpassword=' + newpass + '&token=' + cookies.get('token'));
+      let ans = await fetch(process.env.REACT_APP_BACKEND+'change-pass?curpassword=' + oldpass + '&newpassword=' + newpass + '&token=' + cookies.get('token'));
       ans = await ans.json();
       console.log(ans)
-      console.log('http://localhost:1337/change-pass?curpassword=' + oldpass + '&newpassword=' + newpass + '&token=' + cookies.get('token'))
+      console.log(process.env.REACT_APP_BACKEND+'change-pass?curpassword=' + oldpass + '&newpassword=' + newpass + '&token=' + cookies.get('token'))
       if (ans['response'] != 'successful') {
         throw 'رمز عبور اشتباه است.';
       }
       cookies.remove('token');
-      setTimeout(() => { window.location.replace('http://localhost:3000'); }, 2000);
+      setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH); }, 2000);
       upd('<div class="alert alert-success" role="alert">رمز عبور تغییر یافت. دوباره وارد شوید.</div>');
     } catch (err) {
       upd('<div class="alert alert-danger" role="alert">' + err + '</div>');

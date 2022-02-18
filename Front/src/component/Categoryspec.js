@@ -16,7 +16,7 @@ const Writersspec = () => {
   let [itemList, upd] = useState([]);
   useEffect(async () => {
     try {
-      let ans = await fetch('http://localhost:1337/list?category=' + name);
+      let ans = await fetch(process.env.REACT_APP_BACKEND+'list?category=' + name);
       ans = await ans.json();
       console.log(ans);
       let t = [];
@@ -25,7 +25,7 @@ const Writersspec = () => {
           t.push(
             <div className="col-sm-3">
               <div className="card">
-                <img className="card-img-top" src={'http://localhost:1337/' + item['image']} height='400px' alt="Card image cap" />
+                <img className="card-img-top" src={process.env.REACT_APP_BACKEND + item['image']} height='400px' alt="Card image cap" />
                 <div className="card-body">
                   <h5 className="card-title">{item['name']}</h5>
                   <p className="card-text">قیمت: {item['price']}</p>

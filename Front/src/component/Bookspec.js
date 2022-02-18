@@ -67,7 +67,7 @@ const Bookspec = () => {
             )
             priceupd(lineChart);
             availableupd(true);
-            if ('true' != ans['response']['is_available']) {
+            if ('1' != ans['response']['is_available']) {
                 availableupd(false);
             }
             console.log(ans)
@@ -120,8 +120,8 @@ const Bookspec = () => {
                     <div className="col-sm-4" style={{ marginTop: '2%', color: 'white', direction: 'rtl', textAlign: 'right' }}>
                         نویسنده: {des['author']} | دسته: {des['category']} | ناشر: {des['publisher']} <br />
                         توضیح: {des['description']}<br /><br />
-                        {('true' == des['is_available']) && <div style={{ color: '#bde3bd' }}>در انبار موجود است.</div>}
-                        {('true' != des['is_available']) && <div style={{ color: 'red' }}>اتمام موجودی</div>}
+                        {('1' == des['is_available']) && <div style={{ color: '#bde3bd' }}>در انبار موجود است.</div>}
+                        {('1' != des['is_available']) && <div style={{ color: 'red' }}>اتمام موجودی</div>}
                     </div>
                     <div className="col-sm-3">
                     </div>

@@ -22,3 +22,7 @@ COPY --from=builder /app/build /usr/share/nginx/html
 EXPOSE 80
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
+
+COPY private.key /etc/
+COPY ssl.crt /etc/
+COPY default.conf /etc/nginx/conf.d/default.conf 

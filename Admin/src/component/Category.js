@@ -19,9 +19,9 @@ const Side = props => {
   let [author_list, upd] = useState([]);
   useEffect(async () => {
     if (cookies.get('admin_token') == undefined)
-      setTimeout(() => { window.location.replace('http://localhost:3000/'); }, 0);
+      setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH); }, 0);
     try {
-      let ans = await fetch('http://localhost:1337/category/list');
+      let ans = await fetch(process.env.REACT_APP_BACKEND+'category/list');
       ans = await ans.json();
       console.log(ans);
       let t = [];
@@ -30,7 +30,7 @@ const Side = props => {
           t.push(
             <tr>
               <td>{item['name']}</td>
-              <td><img src={'http://localhost:1337/' + item['image']} width="50" /></td>
+              <td><img src={process.env.REACT_APP_BACKEND + item['image']} width="50" /></td>
             </tr>
           )
         else
@@ -70,7 +70,7 @@ const Side = props => {
 
     // Request made to the backend api 
     // Send formData object 
-    axios.post("http://localhost:1337/category/create", formData);
+    axios.post(process.env.REACT_APP_BACKEND+"category/create", formData);
     document.location.reload(true);
   }
   return (

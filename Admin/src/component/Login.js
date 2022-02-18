@@ -14,19 +14,19 @@ const Login = () => {
     console.log(cookies.get('admin_token'))
     let user, pass;
     useEffect(async () => {
-        if(cookies.get('admin_token')!=undefined)
-          setTimeout(() => { window.location.replace('http://localhost:3000/dashboard'); }, 0);
-    },[]);
+        if (cookies.get('admin_token') != undefined)
+            setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH + 'dashboard'); }, 0);
+    }, []);
     const onFinish = async (values) => {
         console.log('Success:', user);
         try {
-            let ans = await fetch('http://localhost:1337/login?username=' + user + '&password=' + pass);
+            let ans = await fetch(process.env.REACT_APP_BACKEND + 'login?username=' + user + '&password=' + pass);
             ans = await ans.json();
             if (ans['token'] == undefined) {
                 throw 'نام کاربری یا رمز عبور تکراری است.';
             }
             cookies.set('admin_token', ans['token'])
-            setTimeout(() => { window.location.replace('http://localhost:3000/dashboard'); }, 500);
+            setTimeout(() => { window.location.replace(process.env.REACT_APP_PATH + 'dashboard'); }, 500);
             upd('<div class="alert alert-success" role="alert">با موفقیت وارد شدید!</div>');
         } catch (err) {
             upd('<div class="alert alert-danger" role="alert">' + err + '</div>');
@@ -35,7 +35,7 @@ const Login = () => {
     };
     return (
         <>
-            <div className='row bg-dark' style={{ paddingTop: '10%', height: '100vh' }}>
+            <div className='row bg-dark' style={{ paddingTop: '10%', height: '100vh', width: '125%', marginRight: '-20%' }}>
                 <div className="col-sm-12">
                     <section className="ftco-section" style={{ minHeight: '100vh', width: '90%', marginTop: '3%', textAlign: 'center', color: 'white', minHeight: '500px', display: 'block', margin: 'auto' }}>
                         <div className="container">

@@ -20,7 +20,7 @@ const Login = () => {
     const onFinish = async (values) => {
         console.log('Success:', user);
         try {
-            let ans = await fetch(process.env.REACT_APP_BACKEND + 'login?username=' + user + '&password=' + pass);
+            let ans = await fetch(process.env.REACT_APP_BACKEND + 'login?username=' + user + '&password=' + pass, {crossDomain:true});
             ans = await ans.json();
             if (ans['token'] == undefined) {
                 throw 'نام کاربری یا رمز عبور تکراری است.';

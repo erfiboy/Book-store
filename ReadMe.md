@@ -3,7 +3,7 @@ In this project we design an online book store website. In the backend we use [P
 
 ![This is an image](./image/structure.png)
 
-As we can see from the above picture we used [Nginx](https://www.nginx.com/) as a load balancer and a reverse proxy, and also we have tow postgres databases. The master postgres responsible for write and read and the slave database is used for read and the data. In order to prevent data inconsistency master database sync salve database data. but as we have two database for read data we can distribute request between master and slave.
+As you can see from the above picture we used [Nginx](https://www.nginx.com/) as a load balancer and a reverse proxy, and also we have tow postgres databases. The master postgres responsible for write and read and the slave database is used for reading the data. In order to prevent data inconsistency master database syncs with salve database data. but as we have two database for reading data we can distribute request between master and slave.
 
 ## ویژگی ها
 در صفحه لیتسی از پر طرفدار ترین کتاب ها نمایش داده می‌شود که هر کتاب دارای صفحه مخصوص خود است. در صفحه اول و در روی هر یک از کتاب ها ما اسم نویسنده اسم کتاب، اسم ناشر و خلاصه‌ای از آن کتاب را قرار می‌دهیم.
